@@ -6,58 +6,120 @@
     <title>raynodon | Music Maker</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* --- 1. 基础布局 --- */
         body { 
             font-family: 'Inter', -apple-system, sans-serif; 
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('bg.jpg');
-            background-size: cover; background-repeat: no-repeat; background-position: center; background-attachment: fixed; background-color: #0a0a0a; 
-            color: #eee; margin: 0; padding: 40px 20px; line-height: 1.6; display: flex; justify-content: center; 
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('bg.jpg');
+            background-size: cover; background-position: center; background-attachment: fixed;
+            background-color: #0a0a0a; color: #eee; margin: 0; padding: 20px;
+            display: flex; flex-direction: column; align-items: center;
         }
-        .container { max-width: 600px; width: 100%; position: relative; }
+        .container { max-width: 600px; width: 100%; margin-top: 20px; }
         
-        /* --- 2. 侧边“广告”委托模块 --- */
+        /* 侧边悬浮委托 (电脑端) */
         .side-commission {
-            position: fixed; right: 20px; top: 150px; width: 200px;
-            padding: 20px; border-radius: 18px; border: 1px solid rgba(255, 255, 255, 0.1);
+            position: fixed; right: 30px; top: 100px; width: 180px; padding: 20px;
             background: linear-gradient(135deg, rgba(79, 70, 229, 0.9), rgba(124, 58, 237, 0.9));
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5); z-index: 100; backdrop-filter: blur(10px);
+            border-radius: 15px; border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3); z-index: 1000;
         }
-        .side-commission h2 { font-size: 1.1rem; margin-top: 0; }
-        .side-commission p { font-size: 0.85rem; opacity: 0.9; }
+        .side-commission h2 { font-size: 1rem; margin-top: 0; color: #fff; }
+        .side-commission p { font-size: 0.8rem; margin-bottom: 15px; }
 
-        /* --- 3. 模块通用样式 --- */
         .section { 
-            margin-bottom: 30px; padding: 25px; border-radius: 18px; 
-            background: rgba(15, 15, 15, 0.7); border: 1px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); 
+            margin-bottom: 25px; padding: 25px; border-radius: 18px; 
+            background: rgba(15, 15, 15, 0.75); border: 1px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); 
         }
-        .support-box { border: 1px solid #9013fe; background: rgba(144, 19, 254, 0.1); }
         
-        /* 名字动画 */
-        h1 { font-size: 2.5rem; margin-bottom: 5px; animation: glow 3s ease-in-out infinite alternate; }
-        @keyframes glow { from { text-shadow: 0 0 5px #fff; opacity: 0.8; } to { text-shadow: 0 0 20px #7c3aed, 0 0 30px #4f46e5; opacity: 1; } }
+        h1 { font-size: 2.2rem; margin: 0; animation: glow 3s ease-in-out infinite alternate; }
+        @keyframes glow { from { text-shadow: 0 0 5px #fff; opacity: 0.8; } to { text-shadow: 0 0 20px #7c3aed; opacity: 1; } }
 
-        /* 社交图标样式 */
-        .social-icons { margin-top: 20px; display: flex; gap: 15px; font-size: 1.5rem; }
-        .social-icons a { color: #888; transition: 0.3s; }
-        .social-icons a:hover { color: #fff; transform: translateY(-3px); }
+        .social-icons { margin-top: 15px; display: flex; gap: 20px; font-size: 1.4rem; }
+        .social-icons a { color: #aaa; transition: 0.3s; }
+        .social-icons a:hover { color: #fff; transform: translateY(-2px); }
 
-        /* 按钮与导航 */
-        .lang-nav { text-align: right; margin-bottom: 25px; }
-        .lang-nav a { color: #888; text-decoration: none; margin-left: 15px; font-size: 13px; border: 1px solid #333; padding: 4px 10px; border-radius: 6px; transition: 0.3s; background: rgba(0,0,0,0.5); }
-        .btn { display: inline-block; padding: 10px 18px; border-radius: 10px; text-decoration: none; font-weight: bold; margin-top: 10px; transition: 0.3s; font-size: 13px; }
+        .lang-nav { align-self: flex-end; margin-bottom: 20px; }
+        .lang-nav a { color: #888; text-decoration: none; margin-left: 10px; font-size: 12px; border: 1px solid #333; padding: 5px 12px; border-radius: 20px; background: rgba(0,0,0,0.5); }
+
+        .btn { display: inline-block; padding: 10px 16px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 13px; transition: 0.3s; }
         .btn-filled { background: #fff; color: #000; }
-        .btn-outline { border: 1px solid rgba(255,255,255,0.4); color: #fff; margin-right: 8px; }
+        .btn-outline { border: 1px solid rgba(255,255,255,0.3); color: #fff; margin-top: 10px; margin-right: 5px; }
 
-        /* 响应式：手机端侧边栏变到底部 */
-        @media (max-width: 1100px) {
-            .side-commission { position: relative; width: auto; right: 0; top: 0; margin-bottom: 30px; order: -1; }
+        /* 响应式调整 */
+        @media (max-width: 1000px) {
+            .side-commission { position: relative; right: 0; top: 0; width: auto; margin-bottom: 20px; }
+            body { padding-top: 10px; }
         }
 
         /* 语言切换逻辑 */
-        .lang-block { display: none; } #en { display: block; }
-        #zh:target, #ja:target, #en:target { display: block; }
+        .lang-block { display: none; }
+        #en { display: block; } /* 确保默认显示 */
+        #en:target, #zh:target, #ja:target { display: block; }
         #zh:target ~ #en, #ja:target ~ #en { display: none; }
-        #zh:target ~ #ja, #ja:target ~ #zh { display: none; }
     </style>
 </head>
 <body>
+
+<div class="side-commission">
+    <h2>Free Commission</h2>
+    <p>Compose for interesting projects for FREE.</p>
+    <a href="mailto:raynodon@outlook.com" class="btn btn-filled">Email Me</a>
+</div>
+
+<div class="container">
+    <div class="lang-nav">
+        <a href="#en">EN</a><a href="#zh">CN</a><a href="#ja">JP</a>
+    </div>
+
+    <div id="en" class="lang-block">
+        <div class="section">
+            <h1>raynodon</h1>
+            <p style="color:#aaa;">Music Maker</p>
+            <div class="social-icons">
+                <a href="https://space.bilibili.com/631912286" target="_blank"><i class="fa-brands fa-bilibili"></i></a>
+                <a href="https://www.youtube.com/@RAYnodon" target="_blank"><i class="fa-brands fa-youtube"></i></a>
+                <a href="https://www.tiktok.com/@raynodon" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
+                <a href="https://x.com/_raynodon_" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <div id="zh" class="lang-block">
+        <div class="section">
+            <h1>raynodon</h1>
+            <p style="color:#aaa;">音乐人 / Music Maker</p>
+            <div class="social-icons">
+                <a href="https://space.bilibili.com/631912286" target="_blank"><i class="fa-brands fa-bilibili"></i></a>
+                <a href="https://www.youtube.com/@RAYnodon" target="_blank"><i class="fa-brands fa-youtube"></i></a>
+                <a href="https://www.tiktok.com/@raynodon" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
+                <a href="https://x.com/_raynodon_" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <div id="ja" class="lang-block">
+        <div class="section">
+            <h1>raynodon</h1>
+            <p style="color:#aaa;">ミュージックメーカー</p>
+            <div class="social-icons">
+                <a href="https://space.bilibili.com/631912286" target="_blank"><i class="fa-brands fa-bilibili"></i></a>
+                <a href="https://www.youtube.com/@RAYnodon" target="_blank"><i class="fa-brands fa-youtube"></i></a>
+                <a href="https://www.tiktok.com/@raynodon" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
+                <a href="https://x.com/_raynodon_" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h3 style="margin-top:0;">Music / Works</h3>
+        <iframe style="border-radius:12px; margin-bottom:15px;" src="https://open.spotify.com/embed/artist/5LqIatHbeG6KzVv1S9C5M0?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        <div>
+            <a href="https://music.163.com/#/artist?id=34381748" target="_blank" class="btn btn-outline">NetEase</a>
+            <a href="https://music.apple.com/cn/artist/raynodon/1872558339" target="_blank" class="btn btn-outline">Apple</a>
+            <a href="https://music.amazon.com/artists/B0GKWPL6ND/raynodon" target="_blank" class="btn btn-outline">Amazon</a>
+            <a href="https://afdian.com/a/raynodon" target="_blank" class="btn btn-outline" style="border-color:#9013fe;">Afdian</a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
