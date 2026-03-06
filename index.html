@@ -5,23 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>raynodon | Music Maker</title>
     <style>
-        /* --- 1. 背景与亮度调节 (已修复) --- */
+        /* --- 1. 背景修复：全屏覆盖 + 遮罩调优 --- */
         body { 
             font-family: 'Inter', -apple-system, sans-serif; 
-            /* 亮度指南：
-               rgba(0,0,0,0.6) 表示遮罩浓度为 60%。
-               如果你觉得太暗，可以把 0.6 改为 0.4。
-               
-               背景图指南 (防止拉伸)：
-               我们将 size 改为 contain (包含)，让图片保持原比例居中，不强制拉伸。
-               如果原图较小，周围会露出背景色。
+            /* rgba(0,0,0,0.5) 遮罩浓度设为 50%：
+               既能看清背景图，又能让白色文字保持清晰，同时掩盖低分辨率图片的噪点。
             */
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('bg.jpg');
-            background-size: contain; /* 改为 contain，防止强制拉伸 */
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('bg.jpg');
+            
+            /* 关键修改：使用 cover 确保背景铺满全屏，固定不随滚动条移动 */
+            background-size: cover; 
             background-repeat: no-repeat;
             background-position: center;
             background-attachment: fixed;
-            background-color: #0a0a0a; /* 如果 contain 导致周围留白，显示此色 */
+            background-color: #0a0a0a; 
             
             color: #eee; 
             margin: 0; 
@@ -43,33 +40,30 @@
             to { text-shadow: 0 0 20px #7c3aed, 0 0 30px #4f46e5; opacity: 1; }
         }
 
-        /* 导航与模块 */
         .lang-nav { text-align: right; margin-bottom: 25px; }
-        .lang-nav a { color: #888; text-decoration: none; margin-left: 15px; font-size: 13px; border: 1px solid #333; padding: 4px 10px; border-radius: 6px; transition: 0.3s; background: rgba(0,0,0,0.4); }
+        .lang-nav a { color: #888; text-decoration: none; margin-left: 15px; font-size: 13px; border: 1px solid #333; padding: 4px 10px; border-radius: 6px; transition: 0.3s; background: rgba(0,0,0,0.5); }
         .lang-nav a:hover { color: #fff; border-color: #fff; background: rgba(255,255,255,0.1); }
 
         .section { 
             margin-bottom: 30px; 
             padding: 25px; 
             border-radius: 18px; 
-            background: rgba(15, 15, 15, 0.7); /* 调暗了模块背景，增加质感 */
+            background: rgba(15, 15, 15, 0.7); 
             border: 1px solid rgba(255, 255, 255, 0.1); 
             backdrop-filter: blur(10px); 
         }
-        .commission-box { background: linear-gradient(135deg, rgba(79, 70, 229, 0.7), rgba(124, 58, 237, 0.7)); border: none; box-shadow: 0 10px 30px rgba(79, 70, 229, 0.2); }
+        .commission-box { background: linear-gradient(135deg, rgba(79, 70, 229, 0.7), rgba(124, 58, 237, 0.7)); border: none; }
         .support-box { border: 1px solid #9013fe; background: rgba(144, 19, 254, 0.1); }
 
         .btn { display: inline-block; padding: 12px 22px; border-radius: 10px; text-decoration: none; font-weight: bold; margin-top: 15px; transition: 0.3s; font-size: 14px; }
         .btn-filled { background: #fff; color: #000; border: none; }
         .btn-outline { border: 1px solid rgba(255,255,255,0.4); color: #fff; margin-right: 10px; margin-top: 10px; }
-        .btn-outline:hover { border-color: #9013fe; background: rgba(144, 19, 254, 0.2); }
 
-        /* --- 核心切换逻辑 (已修复) --- */
-        .lang-block { display: none; } /* 默认全部隐藏 */
-        #zh { display: block; } /* 初始加载默认显示中文版块 */
-        
-        #zh:target, #ja:target, #en:target { display: block; } /* 点击对应语言显示 */
-        #ja:target ~ #zh, #en:target ~ #zh { display: none; } /* 互斥逻辑 */
+        /* --- 核心切换逻辑 --- */
+        .lang-block { display: none; } 
+        #zh { display: block; } 
+        #zh:target, #ja:target, #en:target { display: block; } 
+        #ja:target ~ #zh, #en:target ~ #zh { display: none; } 
         #ja:target ~ #en, #en:target ~ #ja { display: none; }
     </style>
 </head>
@@ -83,37 +77,15 @@
     </div>
 
     <div id="ja" class="lang-block">
-        <div class="section">
-            <h1>raynodon</h1>
-            <p>ミュージックメーカー</p>
-            <p style="font-size: 0.85rem; color: #888;">raynodon@outlook.com</p>
-        </div>
-        <div class="section commission-box">
-            <h2>無償作曲のご依頼</h2>
-            <p>面白いプロジェクトであれば、無料で作曲いたします。詳細はメールにてご相談ください。</p>
-            <a href="mailto:raynodon@outlook.com" class="btn btn-filled">メールを送る</a>
-        </div>
-        <div class="section support-box" style="margin-bottom: 0; border-bottom: none; border-bottom-left-radius: 0; border-bottom-right-radius: 0;">
-            <h3>活動を支援する</h3>
-            <p>制作活動をサポートいただける方は、こちらからお願いいたします：</p>
-        </div>
+        <div class="section"><h1>raynodon</h1><p>ミュージックメーカー</p><p style="font-size: 0.85rem; color: #888;">raynodon@outlook.com</p></div>
+        <div class="section commission-box"><h2>無償作曲のご依頼</h2><p>面白いプロジェクトであれば、無料で作曲いたします。詳細はメールにてご相談ください。</p><a href="mailto:raynodon@outlook.com" class="btn btn-filled">メールを送る</a></div>
+        <div class="section support-box" style="margin-bottom: 0; border-bottom: none; border-bottom-left-radius: 0; border-bottom-right-radius: 0;"><h3>活動を支援する</h3><p>制作活動をサポートいただける方は、こちらからお願いいたします：</p></div>
     </div>
 
     <div id="en" class="lang-block">
-        <div class="section">
-            <h1>raynodon</h1>
-            <p>Music Maker</p>
-            <p style="font-size: 0.85rem; color: #888;">raynodon@outlook.com</p>
-        </div>
-        <div class="section commission-box">
-            <h2>Free Commission</h2>
-            <p>Open for interesting projects. I'll compose for you for FREE. Contact me via email.</p>
-            <a href="mailto:raynodon@outlook.com" class="btn btn-filled">Email Me</a>
-        </div>
-        <div class="section support-box" style="margin-bottom: 0; border-bottom: none; border-bottom-left-radius: 0; border-bottom-right-radius: 0;">
-            <h3>Support My Work</h3>
-            <p>If you enjoy my music, you can support my creative journey via these platforms:</p>
-        </div>
+        <div class="section"><h1>raynodon</h1><p>Music Maker</p><p style="font-size: 0.85rem; color: #888;">raynodon@outlook.com</p></div>
+        <div class="section commission-box"><h2>Free Commission</h2><p>Open for interesting projects. I'll compose for you for FREE. Contact me via email.</p><a href="mailto:raynodon@outlook.com" class="btn btn-filled">Email Me</a></div>
+        <div class="section support-box" style="margin-bottom: 0; border-bottom: none; border-bottom-left-radius: 0; border-bottom-right-radius: 0;"><h3>Support My Work</h3><p>If you enjoy my music, you can support my creative journey via these platforms:</p></div>
     </div>
 
     <div id="zh" class="lang-block">
@@ -141,7 +113,7 @@
         <div class="section">
             <h3>Music / Works</h3>
             <div style="margin-top: 15px;">
-                <iframe style="border-radius:12px" src="https://open.spotify.com/embed/artist/0?utm_source=generator7" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                <iframe style="border-radius:12px" src="https://open.spotify.com/embed/artist/5HpxhG97j8w1vR4x59R6m4?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
             </div>
             <div style="margin-top: 20px;">
                 <a href="https://music.apple.com/cn/artist/raynodon/1872558339" target="_blank" class="btn btn-outline">Apple Music</a>
