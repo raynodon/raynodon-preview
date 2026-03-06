@@ -6,45 +6,118 @@
     <title>raynodon</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
+        /* 1. 基础环境：确保背景不会遮挡内容 */
         body { 
             font-family: 'Inter', sans-serif; 
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('bg.jpg');
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('bg.jpg');
             background-size: cover; background-position: center; background-attachment: fixed;
             background-color: #0a0a0a; color: #eee; margin: 0; padding: 20px;
-            display: flex; flex-direction: column; align-items: center;
+            display: flex; flex-direction: column; align-items: center; min-height: 100vh;
         }
-        .container { max-width: 600px; width: 100%; margin-top: 10px; }
+        .container { max-width: 600px; width: 100%; z-index: 2; }
 
-        /* 侧边委托栏 */
+        /* 2. 侧边栏：独立定位 */
         .side-commission {
             position: fixed; right: 30px; top: 100px; width: 180px; padding: 20px;
             background: linear-gradient(135deg, rgba(79, 70, 229, 0.9), rgba(124, 58, 237, 0.9));
             border-radius: 15px; border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(10px);
             box-shadow: 0 10px 30px rgba(0,0,0,0.3); z-index: 1000;
         }
-        .side-commission h2 { font-size: 1rem; margin: 0 0 10px 0; color: #fff; }
         .side-email { font-size: 0.8rem; display: block; margin-top: 10px; color: #fff; font-weight: bold; text-align: center; }
 
-        .section { margin-bottom: 20px; padding: 25px; border-radius: 18px; background: rgba(15, 15, 15, 0.75); border: 1px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); }
-        .mini-section { padding: 15px 25px; margin-bottom: 20px; border-radius: 15px; background: rgba(144, 19, 254, 0.15); border: 1px solid rgba(144, 19, 254, 0.3); display: flex; align-items: center; justify-content: space-between; }
+        /* 3. 核心版块样式 */
+        .section { margin-bottom: 20px; padding: 25px; border-radius: 18px; background: rgba(15, 15, 15, 0.8); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .mini-section { padding: 15px 25px; margin-bottom: 20px; border-radius: 15px; background: rgba(144, 19, 254, 0.2); border: 1px solid rgba(144, 19, 254, 0.4); display: flex; align-items: center; justify-content: space-between; }
 
-        /* 顶部布局：头像 + 名字 + SNS */
+        /* 4. 简介区域布局：头像 + (名字 & SNS) */
         .profile-header { display: flex; align-items: center; gap: 20px; }
-        .avatar { width: 90px; height: 90px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.4); object-fit: cover; }
-        .profile-content { flex: 1; }
+        .avatar { width: 90px; height: 90px; border-radius: 50%; border: 2px solid #fff; object-fit: cover; }
+        .profile-text { flex: 1; }
 
         h1 { 
-            font-size: 2.4rem; margin: 0; color: #fff; line-height: 1.1;
-            text-shadow: 0 0 15px #fff, 0 0 30px #7c3aed;
-            animation: glow-strong 2s ease-in-out infinite alternate; 
+            font-size: 2.5rem; margin: 0; color: #fff; 
+            text-shadow: 0 0 15px #7c3aed, 0 0 30px #4f46e5;
+            animation: glow 2s infinite alternate; 
         }
-        @keyframes glow-strong { from { opacity: 0.85; } to { opacity: 1; text-shadow: 0 0 20px #fff, 0 0 40px #7c3aed, 0 0 50px #4f46e5; } }
+        @keyframes glow { from { opacity: 0.8; } to { opacity: 1; } }
 
-        .sns-icons { margin-top: 10px; display: flex; gap: 15px; font-size: 1.25rem; }
-        .sns-icons a { color: rgba(255,255,255,0.7); transition: 0.3s; }
-        .sns-icons a:hover { color: #fff; transform: translateY(-2px); }
+        .sns-icons { margin-top: 10px; display: flex; gap: 18px; font-size: 1.4rem; }
+        .sns-icons a { color: rgba(255,255,255,0.7); text-decoration: none; transition: 0.3s; }
+        .sns-icons a:hover { color: #fff; transform: scale(1.1); }
 
         .lang-nav { text-align: right; margin-bottom: 15px; }
-        .lang-nav a { color: #888; text-decoration: none; margin-left: 10px; font-size: 11px; border: 1px solid #333; padding: 4px 10px; border-radius: 20px; background: rgba(0,0,0,0.5); }
+        .lang-nav a { color: #888; text-decoration: none; margin-left: 10px; font-size: 11px; border: 1px solid #444; padding: 4px 12px; border-radius: 20px; background: #000; }
 
-        .btn { display: inline-block; padding: 10px 16px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 13px; transition: 0.3s; text-align: center; }
+        .btn { display: inline-block; padding: 10px 16px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 13px; cursor: pointer; }
+        .btn-filled { background: #fff; color: #000; width: 100%; text-align: center; box-sizing: border-box; }
+        .btn-outline { border: 1px solid #fff; color: #fff; margin-top: 5px; margin-right: 5px; }
+
+        @media (max-width: 1000px) { .side-commission { position: relative; right: 0; top: 0; width: auto; margin-bottom: 20px; } }
+
+        /* 5. 简单的隐藏/显示逻辑：彻底杜绝白屏 */
+        .lang-block { display: none; }
+        .lang-block:target { display: block; }
+        /* 默认如果没有 target，显示英文版块 */
+        #en { display: block; }
+        #zh:target ~ #en, #ja:target ~ #en { display: none; }
+    </style>
+</head>
+<body>
+
+<div class="side-commission">
+    <h2 style="font-size: 1rem; margin: 0 0 10px 0;">Free Commission</h2>
+    <p style="font-size: 0.8rem; margin: 0 0 15px 0;">Compose for interesting projects for FREE.</p>
+    <a href="mailto:raynodon@outlook.com" class="btn btn-filled">Email Me</a>
+    <span class="side-email">raynodon@outlook.com</span>
+</div>
+
+<div class="container">
+    <div class="lang-nav">
+        <a href="#en">EN</a><a href="#zh">CN</a><a href="#ja">JP</a>
+    </div>
+
+    <div id="zh" class="lang-block">
+        <div class="section">
+            <div class="profile-header">
+                <img src="avatar.gif" alt="raynodon" class="avatar" onerror="this.src='bg.jpg'">
+                <div class="profile-text">
+                    <h1>raynodon</h1>
+                    <p style="color:#aaa; margin: 5px 0;">音乐人 / Music Maker</p>
+                    <div class="sns-icons">
+                        <a href="https://space.bilibili.com/631912286" target="_blank"><i class="fa-brands fa-bilibili"></i></a>
+                        <a href="https://www.youtube.com/@RAYnodon" target="_blank"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="https://www.tiktok.com/@raynodon" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
+                        <a href="https://x.com/_raynodon_" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="ja" class="lang-block">
+        <div class="section">
+            <div class="profile-header">
+                <img src="avatar.gif" alt="raynodon" class="avatar" onerror="this.src='bg.jpg'">
+                <div class="profile-text">
+                    <h1>raynodon</h1>
+                    <p style="color:#aaa; margin: 5px 0;">ミュージックメーカー</p>
+                    <div class="sns-icons">
+                        <a href="https://space.bilibili.com/631912286" target="_blank"><i class="fa-brands fa-bilibili"></i></a>
+                        <a href="https://www.youtube.com/@RAYnodon" target="_blank"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="https://www.tiktok.com/@raynodon" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
+                        <a href="https://x.com/_raynodon_" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="en" class="lang-block">
+        <div class="section">
+            <div class="profile-header">
+                <img src="avatar.gif" alt="raynodon" class="avatar" onerror="this.src='bg.jpg'">
+                <div class="profile-text">
+                    <h1>raynodon</h1>
+                    <p style="color:#aaa; margin: 5px 0;">Music Maker</p>
+                    <div class="sns-icons">
+                        <a href="https://space.bilibili.com/631912286" target="_blank"><i class="fa-brands
