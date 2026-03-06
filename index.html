@@ -8,69 +8,81 @@
     <style>
         /* 基础环境 */
         body { 
-            font-family: 'Inter', sans-serif; 
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('bg.jpg');
+            font-family: 'Inter', -apple-system, sans-serif; 
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('bg.jpg');
             background-size: cover; background-position: center; background-attachment: fixed;
             background-color: #0a0a0a; color: #eee; margin: 0; padding: 20px;
             display: flex; flex-direction: column; align-items: center; min-height: 100vh;
         }
-        .container { max-width: 600px; width: 100%; position: relative; }
+        .container { max-width: 600px; width: 100%; position: relative; z-index: 2; }
 
         /* 侧边委托栏 */
+        @keyframes fadeInSlideSide { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
         .side-commission {
             position: fixed; right: 30px; top: 100px; width: 180px; padding: 20px;
             background: linear-gradient(135deg, rgba(79, 70, 229, 0.9), rgba(124, 58, 237, 0.9));
             border-radius: 15px; border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(10px);
             box-shadow: 0 10px 30px rgba(0,0,0,0.3); z-index: 1000;
+            animation: fadeInSlideSide 1.2s ease-out;
         }
-        .side-email { font-size: 0.8rem; display: block; margin-top: 10px; color: #fff; font-weight: bold; text-align: center; }
+        .side-commission h2 { font-size: 1rem; margin: 0 0 10px 0; color: #fff; }
+        .side-commission p { font-size: 0.8rem; margin-bottom: 15px; opacity: 0.9; }
+        .side-email { font-size: 0.75rem; display: block; margin-top: 10px; color: #fff; opacity: 0.8; word-break: break-all; text-align: center; }
 
-        /* 通用板块样式 */
-        .section { margin-bottom: 20px; padding: 25px; border-radius: 18px; background: rgba(15, 15, 15, 0.8); border: 1px solid rgba(255, 255, 255, 0.1); }
-        .mini-section { padding: 15px 25px; margin-bottom: 20px; border-radius: 15px; background: rgba(144, 19, 254, 0.2); border: 1px solid rgba(144, 19, 254, 0.4); display: flex; align-items: center; justify-content: space-between; }
+        /* 版块样式 */
+        .section { margin-bottom: 20px; padding: 25px; border-radius: 18px; background: rgba(15, 15, 15, 0.8); border: 1px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); }
+        .mini-section { padding: 15px 25px; margin-bottom: 20px; border-radius: 15px; background: rgba(144, 19, 254, 0.15); border: 1px solid rgba(144, 19, 254, 0.3); display: flex; align-items: center; justify-content: space-between; }
 
-        /* 简介头部（头像在左，文字在右） */
+        /* 简介头部 */
         .profile-header { display: flex; align-items: center; gap: 20px; }
-        .avatar { width: 90px; height: 90px; border-radius: 50%; border: 2px solid #fff; object-fit: cover; }
+        .avatar { width: 90px; height: 90px; border-radius: 50%; border: 3px solid rgba(255,255,255,0.2); object-fit: cover; box-shadow: 0 5px 15px rgba(0,0,0,0.4); }
         .profile-text { flex: 1; }
 
-        /* 极高亮名字 */
+        /* 发光艺人名 */
         h1 { 
             font-size: 2.5rem; margin: 0; color: #fff; line-height: 1.1;
-            text-shadow: 0 0 15px #7c3aed, 0 0 30px #4f46e5;
-            animation: glow 2s infinite alternate; 
+            text-shadow: 0 0 10px rgba(255,255,255,0.5);
+            animation: glow-max 3s ease-in-out infinite alternate; 
         }
-        @keyframes glow { from { opacity: 0.8; } to { opacity: 1; text-shadow: 0 0 20px #fff, 0 0 40px #7c3aed, 0 0 60px #4f46e5; } }
+        @keyframes glow-max { 
+            from { text-shadow: 0 0 8px #fff, 0 0 15px rgba(124, 58, 237, 0.6); opacity: 0.9; } 
+            to { text-shadow: 0 0 20px #fff, 0 0 35px #7c3aed, 0 0 50px #4f46e5; opacity: 1; } 
+        }
 
-        /* SNS 图标 */
-        .sns-icons { margin-top: 12px; display: flex; gap: 18px; font-size: 1.4rem; }
-        .sns-icons a { color: rgba(255,255,255,0.7); text-decoration: none; transition: 0.3s; }
-        .sns-icons a:hover { color: #fff; transform: scale(1.1); }
+        .sns-icons { margin-top: 10px; display: flex; gap: 18px; font-size: 1.4rem; }
+        .sns-icons a { color: rgba(255,255,255,0.7); transition: 0.3s; text-decoration: none; }
+        .sns-icons a:hover { color: #fff; transform: scale(1.15); }
 
-        /* 语言导航按钮 */
-        .lang-nav { text-align: right; margin-bottom: 15px; }
+        .lang-nav { align-self: flex-end; margin-bottom: 15px; }
         .lang-nav button { 
             color: #888; border: 1px solid #444; padding: 4px 12px; border-radius: 20px; 
             background: #000; cursor: pointer; margin-left: 10px; font-size: 12px; transition: 0.3s;
         }
         .lang-nav button:hover, .lang-nav button.active { color: #fff; border-color: #fff; background: rgba(255,255,255,0.1); }
 
-        /* 通用按钮 */
-        .btn { display: inline-block; padding: 10px 16px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 13px; cursor: pointer; }
+        /* 按钮与自定义 Icon */
+        .btn { display: inline-block; padding: 10px 18px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 13px; cursor: pointer; transition: 0.3s; }
         .btn-filled { background: #fff; color: #000; width: 100%; text-align: center; box-sizing: border-box; }
-        .btn-outline { border: 1px solid rgba(255,255,255,0.4); color: #fff; margin-top: 5px; margin-right: 5px; }
+        .btn-outline { border: 1px solid rgba(255,255,255,0.3); color: #fff; margin-top: 5px; margin-right: 5px; text-align: center; display: inline-flex; align-items: center; justify-content: center; }
+        
+        /* 针对音乐平台的瘦身按钮 */
+        .btn-compact { padding: 6px 12px; font-size: 11px; border-radius: 6px; }
+        .btn-compact i { margin-right: 4px; font-size: 13px; }
+        
+        /* 自定义图片图标样式 */
+        .custom-icon { height: 14px; width: auto; margin-right: 6px; border-radius: 2px; }
 
         @media (max-width: 1000px) { .side-commission { position: relative; right: 0; top: 0; width: auto; margin-bottom: 20px; } }
 
-        /* JS 控制的基础隐藏类 */
+        /* 隔离的 JS 隐藏类 */
         .lang-block { display: none; }
     </style>
 </head>
 <body>
 
 <div class="side-commission">
-    <h2 style="font-size: 1rem; margin: 0 0 10px 0;">Free Commission</h2>
-    <p style="font-size: 0.8rem; margin: 0 0 15px 0;">Compose for interesting projects for FREE.</p>
+    <h2>Free Commission</h2>
+    <p>Compose for interesting projects for FREE.</p>
     <a href="mailto:raynodon@outlook.com" class="btn btn-filled">Email Me</a>
     <span class="side-email">raynodon@outlook.com</span>
 </div>
@@ -88,7 +100,7 @@
                 <img src="avatar.gif" alt="raynodon" class="avatar" onerror="this.src='bg.jpg'">
                 <div class="profile-text">
                     <h1>raynodon</h1>
-                    <p style="color:#aaa; margin: 4px 0;">Music Maker</p>
+                    <p style="color:#aaa; margin: 4px 0; font-size: 0.9rem;">Music Maker</p>
                     <div class="sns-icons">
                         <a href="https://space.bilibili.com/631912286" target="_blank"><i class="fa-brands fa-bilibili"></i></a>
                         <a href="https://www.youtube.com/@RAYnodon" target="_blank"><i class="fa-brands fa-youtube"></i></a>
@@ -97,6 +109,12 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="mini-section">
+            <span style="font-size: 0.9rem; font-weight:bold;">Support my creation:</span>
+            <a href="https://afdian.com/a/raynodon" target="_blank" class="btn btn-outline" style="margin-top:0; border-color:#9013fe;">
+                <img src="afdian.png" alt="Afdian" class="custom-icon" onerror="this.style.display='none'"> Afdian
+            </a>
         </div>
     </div>
 
@@ -106,7 +124,7 @@
                 <img src="avatar.gif" alt="raynodon" class="avatar" onerror="this.src='bg.jpg'">
                 <div class="profile-text">
                     <h1>raynodon</h1>
-                    <p style="color:#aaa; margin: 4px 0;">音乐人 / Music Maker</p>
+                    <p style="color:#aaa; margin: 4px 0; font-size: 0.9rem;">音乐人 / Music Maker</p>
                     <div class="sns-icons">
                         <a href="https://space.bilibili.com/631912286" target="_blank"><i class="fa-brands fa-bilibili"></i></a>
                         <a href="https://www.youtube.com/@RAYnodon" target="_blank"><i class="fa-brands fa-youtube"></i></a>
@@ -115,6 +133,12 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="mini-section">
+            <span style="font-size: 0.9rem; font-weight:bold;">赞助我的创作：</span>
+            <a href="https://afdian.com/a/raynodon" target="_blank" class="btn btn-outline" style="margin-top:0; border-color:#9013fe;">
+                <img src="afdian.png" alt="Afdian" class="custom-icon" onerror="this.style.display='none'"> 爱发电
+            </a>
         </div>
     </div>
 
@@ -124,7 +148,7 @@
                 <img src="avatar.gif" alt="raynodon" class="avatar" onerror="this.src='bg.jpg'">
                 <div class="profile-text">
                     <h1>raynodon</h1>
-                    <p style="color:#aaa; margin: 4px 0;">ミュージックメーカー</p>
+                    <p style="color:#aaa; margin: 4px 0; font-size: 0.9rem;">ミュージックメーカー</p>
                     <div class="sns-icons">
                         <a href="https://space.bilibili.com/631912286" target="_blank"><i class="fa-brands fa-bilibili"></i></a>
                         <a href="https://www.youtube.com/@RAYnodon" target="_blank"><i class="fa-brands fa-youtube"></i></a>
@@ -134,44 +158,61 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="mini-section">
-        <span style="font-size: 0.9rem; font-weight:bold;">Support my creation:</span>
-        <a href="https://afdian.com/a/raynodon" target="_blank" class="btn btn-outline" style="margin-top:0;"><i class="fa-solid fa-bolt"></i> Afdian</a>
+        <div class="mini-section">
+            <span style="font-size: 0.9rem; font-weight:bold;">活動を支援する：</span>
+            <a href="https://afdian.com/a/raynodon" target="_blank" class="btn btn-outline" style="margin-top:0; border-color:#9013fe;">
+                <img src="afdian.png" alt="Afdian" class="custom-icon" onerror="this.style.display='none'"> Afdian
+            </a>
+        </div>
     </div>
 
     <div class="section">
-        <h3 style="margin: 0 0 15px 0;">Music / Works</h3>
-        <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px; background: #000; margin-bottom: 20px;">
+        <h3 id="music-title" style="margin: 0 0 15px 0; font-size: 1.3rem;">Music / Works</h3>
+        
+        <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px; background: #000; margin-bottom: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.4);">
             <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" src="https://www.youtube.com/embed/videoseries?list=PLumnOpGCaC3zBTO_wNkSU3hT8RG9v3Jju" allowfullscreen></iframe>
         </div>
+        
         <div style="display: flex; flex-wrap: wrap; gap: 8px;">
-            <a href="https://music.163.com/#/artist?id=34381748" target="_blank" class="btn btn-outline"><i class="fa-solid fa-cloud"></i> NetEase</a>
-            <a href="https://music.apple.com/cn/artist/raynodon/1872558339" target="_blank" class="btn btn-outline"><i class="fa-brands fa-apple"></i> Apple</a>
-            <a href="https://music.amazon.com/artists/B0GKWPL6ND/raynodon" target="_blank" class="btn btn-outline"><i class="fa-brands fa-amazon"></i> Amazon</a>
+            <a href="https://music.163.com/#/artist?id=34381748" target="_blank" class="btn btn-outline btn-compact">
+                <img src="netease.png" alt="NetEase" class="custom-icon" onerror="this.style.display='none'">NetEase
+            </a>
+            <a href="https://music.apple.com/cn/artist/raynodon/1872558339" target="_blank" class="btn btn-outline btn-compact"><i class="fa-brands fa-apple"></i>Apple Music</a>
+            <a href="https://music.amazon.com/artists/B0GKWPL6ND/raynodon" target="_blank" class="btn btn-outline btn-compact"><i class="fa-brands fa-amazon"></i>Amazon Music</a>
         </div>
     </div>
 </div>
 
 <script>
     function switchLang(lang) {
-        // 1. 隐藏所有语言板块
-        document.getElementById('en').style.display = 'none';
-        document.getElementById('zh').style.display = 'none';
-        document.getElementById('ja').style.display = 'none';
+        // 隐藏所有板块
+        const blocks = ['en', 'zh', 'ja'];
+        blocks.forEach(function(b) {
+            document.getElementById(b).style.display = 'none';
+        });
         
-        // 2. 取消所有按钮的高亮状态
-        document.getElementById('btn-en').classList.remove('active');
-        document.getElementById('btn-zh').classList.remove('active');
-        document.getElementById('btn-ja').classList.remove('active');
+        // 取消高亮
+        const buttons = ['btn-en', 'btn-zh', 'btn-ja'];
+        buttons.forEach(function(btn) {
+            document.getElementById(btn).classList.remove('active');
+        });
         
-        // 3. 只显示被点击的语言板块，并高亮该按钮
+        // 显示选中语言
         document.getElementById(lang).style.display = 'block';
         document.getElementById('btn-' + lang).classList.add('active');
+
+        // 动态翻译 Music / Works 标题
+        const musicTitle = document.getElementById('music-title');
+        if (lang === 'zh') {
+            musicTitle.innerText = '音乐 / 作品';
+        } else if (lang === 'ja') {
+            musicTitle.innerText = '音楽 / 作品';
+        } else {
+            musicTitle.innerText = 'Music / Works';
+        }
     }
 
-    // 网页加载时，默认执行一次，显示英文
+    // 默认执行英文
     switchLang('en');
 </script>
 
