@@ -6,7 +6,6 @@
     <title>raynodon</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        /* 1. 基础环境：确保背景不会遮挡内容 */
         body { 
             font-family: 'Inter', sans-serif; 
             background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('bg.jpg');
@@ -16,7 +15,7 @@
         }
         .container { max-width: 600px; width: 100%; z-index: 2; }
 
-        /* 2. 侧边栏：独立定位 */
+        /* 侧边栏：绝对独立 */
         .side-commission {
             position: fixed; right: 30px; top: 100px; width: 180px; padding: 20px;
             background: linear-gradient(135deg, rgba(79, 70, 229, 0.9), rgba(124, 58, 237, 0.9));
@@ -25,11 +24,11 @@
         }
         .side-email { font-size: 0.8rem; display: block; margin-top: 10px; color: #fff; font-weight: bold; text-align: center; }
 
-        /* 3. 核心版块样式 */
+        /* 版块基础样式 */
         .section { margin-bottom: 20px; padding: 25px; border-radius: 18px; background: rgba(15, 15, 15, 0.8); border: 1px solid rgba(255, 255, 255, 0.1); }
         .mini-section { padding: 15px 25px; margin-bottom: 20px; border-radius: 15px; background: rgba(144, 19, 254, 0.2); border: 1px solid rgba(144, 19, 254, 0.4); display: flex; align-items: center; justify-content: space-between; }
 
-        /* 4. 简介区域布局：头像 + (名字 & SNS) */
+        /* 简介布局 */
         .profile-header { display: flex; align-items: center; gap: 20px; }
         .avatar { width: 90px; height: 90px; border-radius: 50%; border: 2px solid #fff; object-fit: cover; }
         .profile-text { flex: 1; }
@@ -52,14 +51,19 @@
         .btn-filled { background: #fff; color: #000; width: 100%; text-align: center; box-sizing: border-box; }
         .btn-outline { border: 1px solid #fff; color: #fff; margin-top: 5px; margin-right: 5px; }
 
+        /* 响应式 */
         @media (max-width: 1000px) { .side-commission { position: relative; right: 0; top: 0; width: auto; margin-bottom: 20px; } }
 
-        /* 5. 简单的隐藏/显示逻辑：彻底杜绝白屏 */
+        /* --- 核心修复：简介切换逻辑 --- */
         .lang-block { display: none; }
-        .lang-block:target { display: block; }
-        /* 默认如果没有 target，显示英文版块 */
+        /* 默认显示 en */
         #en { display: block; }
+        /* 仅在 target 激活时切换显示 */
+        #zh:target { display: block; }
+        #ja:target { display: block; }
+        /* 互斥逻辑 */
         #zh:target ~ #en, #ja:target ~ #en { display: none; }
+        #zh:target ~ #ja, #ja:target ~ #zh { display: none; }
     </style>
 </head>
 <body>
@@ -120,4 +124,4 @@
                     <h1>raynodon</h1>
                     <p style="color:#aaa; margin: 5px 0;">Music Maker</p>
                     <div class="sns-icons">
-                        <a href="https://space.bilibili.com/631912286" target="_blank"><i class="fa-brands
+                        <a href="https://space.bilibili.com/631912286" target="_blank"><i class="fa-brands fa-bilibili">
