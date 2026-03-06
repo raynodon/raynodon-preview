@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>raynodon | Music Maker</title>
+    <title>raynodon</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         body { 
@@ -28,12 +28,11 @@
         .section { margin-bottom: 20px; padding: 25px; border-radius: 18px; background: rgba(15, 15, 15, 0.75); border: 1px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); }
         .mini-section { padding: 15px 25px; margin-bottom: 20px; border-radius: 15px; background: rgba(144, 19, 254, 0.15); border: 1px solid rgba(144, 19, 254, 0.3); display: flex; align-items: center; justify-content: space-between; }
 
-        /* 顶部布局修复：头像 + 名字 + SNS */
+        /* 顶部布局：头像 + 名字 + SNS */
         .profile-header { display: flex; align-items: center; gap: 20px; }
         .avatar { width: 90px; height: 90px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.4); object-fit: cover; }
         .profile-content { flex: 1; }
 
-        /* 极高亮名字 */
         h1 { 
             font-size: 2.4rem; margin: 0; color: #fff; line-height: 1.1;
             text-shadow: 0 0 15px #fff, 0 0 30px #7c3aed;
@@ -49,76 +48,3 @@
         .lang-nav a { color: #888; text-decoration: none; margin-left: 10px; font-size: 11px; border: 1px solid #333; padding: 4px 10px; border-radius: 20px; background: rgba(0,0,0,0.5); }
 
         .btn { display: inline-block; padding: 10px 16px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 13px; transition: 0.3s; text-align: center; }
-        .btn-filled { background: #fff; color: #000; width: 100%; box-sizing: border-box; }
-        .btn-outline { border: 1px solid rgba(255,255,255,0.3); color: #fff; margin-top: 5px; margin-right: 5px; }
-
-        /* 手机端适配 */
-        @media (max-width: 1000px) { .side-commission { position: relative; right: 0; top: 0; width: auto; margin-bottom: 20px; } }
-
-        /* 语言显示逻辑 - 已加固 */
-        .lang-block { display: none; }
-        #en { display: block; } /* 初始进入页面默认显示英文版块 */
-        #en:target, #zh:target, #ja:target { display: block; }
-        #zh:target ~ #en, #ja:target ~ #en { display: none; }
-    </style>
-</head>
-<body>
-
-<div class="side-commission">
-    <h2>Free Commission</h2>
-    <p style="font-size: 0.8rem;">Compose for interesting projects for FREE.</p>
-    <a href="mailto:raynodon@outlook.com" class="btn btn-filled">Email Me</a>
-    <span class="side-email">raynodon@outlook.com</span>
-</div>
-
-<div class="container">
-    <div class="lang-nav">
-        <a href="#en">EN</a><a href="#zh">CN</a><a href="#ja">JP</a>
-    </div>
-
-    <div id="en" class="lang-block">
-        <div class="section">
-            <div class="profile-header">
-                <img src="avatar.gif" alt="raynodon" class="avatar" onerror="this.src='bg.jpg'">
-                <div class="profile-content">
-                    <h1>raynodon</h1>
-                    <p style="color:#aaa; margin: 4px 0;">Music Maker</p>
-                    <div class="sns-icons">
-                        <a href="https://space.bilibili.com/631912286" target="_blank"><i class="fa-brands fa-bilibili"></i></a>
-                        <a href="https://www.youtube.com/@RAYnodon" target="_blank"><i class="fa-brands fa-youtube"></i></a>
-                        <a href="https://www.tiktok.com/@raynodon" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
-                        <a href="https://x.com/_raynodon_" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="zh" class="lang-block">
-        <div class="section">
-            <div class="profile-header">
-                <img src="avatar.gif" alt="raynodon" class="avatar" onerror="this.src='bg.jpg'">
-                <div class="profile-content">
-                    <h1>raynodon</h1>
-                    <p style="color:#aaa; margin: 4px 0;">音乐人 / Music Maker</p>
-                    <div class="sns-icons">
-                        <a href="https://space.bilibili.com/631912286" target="_blank"><i class="fa-brands fa-bilibili"></i></a>
-                        <a href="https://www.youtube.com/@RAYnodon" target="_blank"><i class="fa-brands fa-youtube"></i></a>
-                        <a href="https://www.tiktok.com/@raynodon" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
-                        <a href="https://x.com/_raynodon_" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="ja" class="lang-block">
-        <div class="section">
-            <div class="profile-header">
-                <img src="avatar.gif" alt="raynodon" class="avatar" onerror="this.src='bg.jpg'">
-                <div class="profile-content">
-                    <h1>raynodon</h1>
-                    <p style="color:#aaa; margin: 4px 0;">ミュージックメーカー</p>
-                    <div class="sns-icons">
-                        <a href="https://space.bilibili.com/631912286" target="_blank"><i class="fa-brands fa-bilibili"></i></a>
-                        <a href="https://www.youtube.com/@RAYnodon" target="_blank"><i class="fa-brands
