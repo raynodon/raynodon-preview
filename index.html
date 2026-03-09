@@ -11,30 +11,31 @@
             background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('bg.jpg');
             background-size: cover; background-position: center; background-attachment: fixed;
             background-color: #0a0a0a; color: #eee; margin: 0; 
-            padding: 60px 20px 20px 20px; /* 顶部预留出潮水横幅的空间 */
+            padding: 65px 20px 20px 20px; /* 顶部留出醒目横幅的空间 */
             display: flex; flex-direction: column; align-items: center; min-height: 100vh;
         }
         .container { max-width: 600px; width: 100%; position: relative; z-index: 2; }
 
-        /* --- 潮水横幅 (顶部全局) --- */
+        /* --- 强对比潮水横幅 (透明度拉满，高亮紫/靛蓝) --- */
         .tide-banner {
             position: fixed; top: 0; left: 0; width: 100%; height: 45px;
-            background: linear-gradient(90deg, rgba(20, 35, 55, 0.2), rgba(60, 90, 120, 0.15), rgba(20, 35, 55, 0.2));
+            background: linear-gradient(90deg, rgba(79, 70, 229, 0.95), rgba(124, 58, 237, 0.95), rgba(79, 70, 229, 0.95));
             background-size: 200% 100%;
-            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(255,255,255,0.05);
+            border-bottom: 1px solid rgba(255,255,255,0.4);
+            box-shadow: 0 4px 20px rgba(124, 58, 237, 0.5); /* 增加底部光晕 */
             z-index: 2000; display: flex; align-items: center; overflow: hidden;
-            animation: tideFlow 10s ease-in-out infinite alternate;
+            animation: tideFlow 6s ease-in-out infinite alternate;
         }
         .tide-track {
             display: flex; white-space: nowrap; animation: marquee 25s linear infinite;
         }
         .tide-track:hover { animation-play-state: paused; }
         .tide-track a {
-            color: rgba(255,255,255,0.7); text-decoration: none; font-size: 12px; 
-            letter-spacing: 6px; font-weight: 300; padding-right: 50px; transition: 0.4s;
+            color: #fff; text-decoration: none; font-size: 13px; 
+            letter-spacing: 5px; font-weight: bold; padding-right: 50px; transition: 0.3s;
+            text-shadow: 0 0 10px rgba(255,255,255,0.8);
         }
-        .tide-track a:hover { color: #fff; text-shadow: 0 0 12px rgba(255,255,255,0.8); }
+        .tide-track a:hover { text-shadow: 0 0 20px #fff, 0 0 30px #fff; }
         
         @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
         @keyframes tideFlow { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
@@ -79,8 +80,8 @@
 
 <div class="tide-banner">
     <div class="tide-track">
-        <a href="YOUR_ALBUM_LINK" target="_blank">NEW ALBUM "ALBUM TITLE" OUT NOW ✧ CLICK TO LISTEN</a>
-        <a href="YOUR_ALBUM_LINK" target="_blank">NEW ALBUM "ALBUM TITLE" OUT NOW ✧ CLICK TO LISTEN</a>
+        <a href="https://www.dizzylab.net/d/toumingxiaoshuo/" target="_blank">NEW ALBUM "透明小说" OUT NOW ✧ CLICK TO LISTEN</a>
+        <a href="https://www.dizzylab.net/d/toumingxiaoshuo/" target="_blank">NEW ALBUM "透明小说" OUT NOW ✧ CLICK TO LISTEN</a>
     </div>
 </div>
 
@@ -117,7 +118,7 @@
         <div class="mini-section">
             <span style="font-size: 0.9rem; font-weight:bold;">Support my creation:</span>
             <a href="https://afdian.com/a/raynodon" target="_blank" class="btn btn-outline" style="margin-top:0; border-color:#9013fe;">
-                <img src="afdian.png" alt="Afdian" class="custom-icon" onerror="this.style.display='none'"> Afdian
+                <img src="afdian_.png" alt="Afdian" class="custom-icon" onerror="this.style.display='none'"> Afdian
             </a>
         </div>
     </div>
@@ -141,7 +142,7 @@
         <div class="mini-section">
             <span style="font-size: 0.9rem; font-weight:bold;">赞助我的创作：</span>
             <a href="https://afdian.com/a/raynodon" target="_blank" class="btn btn-outline" style="margin-top:0; border-color:#9013fe;">
-                <img src="afdian.png" alt="Afdian" class="custom-icon" onerror="this.style.display='none'"> 爱发电
+                <img src="afdian_.png" alt="Afdian" class="custom-icon" onerror="this.style.display='none'"> 爱发电
             </a>
         </div>
     </div>
@@ -165,7 +166,7 @@
         <div class="mini-section">
             <span style="font-size: 0.9rem; font-weight:bold;">活動を支援する：</span>
             <a href="https://afdian.com/a/raynodon" target="_blank" class="btn btn-outline" style="margin-top:0; border-color:#9013fe;">
-                <img src="afdian.png" alt="Afdian" class="custom-icon" onerror="this.style.display='none'"> Afdian
+                <img src="afdian_.png" alt="Afdian" class="custom-icon" onerror="this.style.display='none'"> Afdian
             </a>
         </div>
     </div>
@@ -176,7 +177,7 @@
             <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" src="https://www.youtube.com/embed/videoseries?list=PLumnOpGCaC3zBTO_wNkSU3hT8RG9v3Jju" allowfullscreen></iframe>
         </div>
         <div style="display: flex; flex-wrap: wrap; gap: 8px;">
-            <a href="YOUR_SPOTIFY_LINK" target="_blank" class="btn btn-outline btn-compact"><i class="fa-brands fa-spotify"></i>Spotify</a>
+            <a href="https://open.spotify.com/artist/6FVhtMW0IvGPBUEmEAO0O6?si=0_UF0KVbTcShZ4KcjFdf5w" target="_blank" class="btn btn-outline btn-compact"><i class="fa-brands fa-spotify"></i>Spotify</a>
             <a href="https://music.163.com/#/artist?id=34381748" target="_blank" class="btn btn-outline btn-compact">
                 <img src="netease.png" alt="NetEase" class="custom-icon" onerror="this.style.display='none'">NetEase
             </a>
