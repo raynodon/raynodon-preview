@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>raynodon</title>
+    <link rel="icon" type="image/gif" href="avatar.gif">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         body { 
@@ -16,15 +17,16 @@
         }
         .container { max-width: 600px; width: 100%; position: relative; z-index: 2; }
 
-        /* --- 强对比潮水横幅 (透明度拉满，高亮紫/靛蓝) --- */
+        /* --- 修正后的蓝灰青色横幅 --- */
         .tide-banner {
             position: fixed; top: 0; left: 0; width: 100%; height: 45px;
-            background: linear-gradient(90deg, rgba(79, 70, 229, 0.95), rgba(124, 58, 237, 0.95), rgba(79, 70, 229, 0.95));
+            /* 基础色调：深蓝灰 (rgba(30, 50, 70, 0.98))；流动高光：青色 (rgba(0, 150, 160, 0.98)) */
+            background: linear-gradient(90deg, rgba(30, 50, 70, 0.98), rgba(0, 150, 160, 0.98), rgba(30, 50, 70, 0.98));
             background-size: 200% 100%;
-            border-bottom: 1px solid rgba(255,255,255,0.4);
-            box-shadow: 0 4px 20px rgba(124, 58, 237, 0.5); /* 增加底部光晕 */
+            border-bottom: 1px solid rgba(255,255,255,0.3);
+            box-shadow: 0 4px 15px rgba(0, 150, 160, 0.4); /* 青色光晕 */
             z-index: 2000; display: flex; align-items: center; overflow: hidden;
-            animation: tideFlow 6s ease-in-out infinite alternate;
+            animation: tideFlow 8s ease-in-out infinite alternate;
         }
         .tide-track {
             display: flex; white-space: nowrap; animation: marquee 25s linear infinite;
