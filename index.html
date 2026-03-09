@@ -6,85 +6,89 @@
     <title>raynodon</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        /* 基础环境 */
         body { 
             font-family: 'Inter', -apple-system, sans-serif; 
             background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('bg.jpg');
             background-size: cover; background-position: center; background-attachment: fixed;
-            background-color: #0a0a0a; color: #eee; margin: 0; padding: 20px;
+            background-color: #0a0a0a; color: #eee; margin: 0; 
+            padding: 60px 20px 20px 20px; /* 顶部预留出潮水横幅的空间 */
             display: flex; flex-direction: column; align-items: center; min-height: 100vh;
         }
         .container { max-width: 600px; width: 100%; position: relative; z-index: 2; }
 
-        /* 侧边委托栏 */
+        /* --- 潮水横幅 (顶部全局) --- */
+        .tide-banner {
+            position: fixed; top: 0; left: 0; width: 100%; height: 45px;
+            background: linear-gradient(90deg, rgba(20, 35, 55, 0.2), rgba(60, 90, 120, 0.15), rgba(20, 35, 55, 0.2));
+            background-size: 200% 100%;
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            z-index: 2000; display: flex; align-items: center; overflow: hidden;
+            animation: tideFlow 10s ease-in-out infinite alternate;
+        }
+        .tide-track {
+            display: flex; white-space: nowrap; animation: marquee 25s linear infinite;
+        }
+        .tide-track:hover { animation-play-state: paused; }
+        .tide-track a {
+            color: rgba(255,255,255,0.7); text-decoration: none; font-size: 12px; 
+            letter-spacing: 6px; font-weight: 300; padding-right: 50px; transition: 0.4s;
+        }
+        .tide-track a:hover { color: #fff; text-shadow: 0 0 12px rgba(255,255,255,0.8); }
+        
+        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        @keyframes tideFlow { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
+
+        /* 侧边栏样式 */
         @keyframes fadeInSlideSide { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
         .side-commission {
             position: fixed; right: 30px; top: 100px; width: 180px; padding: 20px;
             background: linear-gradient(135deg, rgba(79, 70, 229, 0.9), rgba(124, 58, 237, 0.9));
             border-radius: 15px; border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(10px);
             box-shadow: 0 10px 30px rgba(0,0,0,0.3); z-index: 1000;
-            animation: fadeInSlideSide 1.2s ease-out;
+            animation: fadeInSlideSide 1s ease-out;
         }
-        .side-commission h2 { font-size: 1rem; margin: 0 0 10px 0; color: #fff; }
-        .side-commission p { font-size: 0.8rem; margin-bottom: 15px; opacity: 0.9; }
-        .side-email { font-size: 0.75rem; display: block; margin-top: 10px; color: #fff; opacity: 0.8; word-break: break-all; text-align: center; }
 
-        /* 版块样式 */
         .section { margin-bottom: 20px; padding: 25px; border-radius: 18px; background: rgba(15, 15, 15, 0.8); border: 1px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); }
         .mini-section { padding: 15px 25px; margin-bottom: 20px; border-radius: 15px; background: rgba(144, 19, 254, 0.15); border: 1px solid rgba(144, 19, 254, 0.3); display: flex; align-items: center; justify-content: space-between; }
 
-        /* 简介头部 */
         .profile-header { display: flex; align-items: center; gap: 20px; }
         .avatar { width: 90px; height: 90px; border-radius: 50%; border: 3px solid rgba(255,255,255,0.2); object-fit: cover; box-shadow: 0 5px 15px rgba(0,0,0,0.4); }
-        .profile-text { flex: 1; }
-
-        /* 发光艺人名 */
-        h1 { 
-            font-size: 2.5rem; margin: 0; color: #fff; line-height: 1.1;
-            text-shadow: 0 0 10px rgba(255,255,255,0.5);
-            animation: glow-max 3s ease-in-out infinite alternate; 
-        }
-        @keyframes glow-max { 
-            from { text-shadow: 0 0 8px #fff, 0 0 15px rgba(124, 58, 237, 0.6); opacity: 0.9; } 
-            to { text-shadow: 0 0 20px #fff, 0 0 35px #7c3aed, 0 0 50px #4f46e5; opacity: 1; } 
-        }
+        h1 { font-size: 2.5rem; margin: 0; color: #fff; line-height: 1.1; text-shadow: 0 0 15px #7c3aed; animation: glow 2s infinite alternate; }
+        @keyframes glow { from { opacity: 0.85; } to { opacity: 1; text-shadow: 0 0 20px #fff, 0 0 40px #7c3aed; } }
 
         .sns-icons { margin-top: 10px; display: flex; gap: 18px; font-size: 1.4rem; }
-        .sns-icons a { color: rgba(255,255,255,0.7); transition: 0.3s; text-decoration: none; }
+        .sns-icons a { color: rgba(255,255,255,0.7); text-decoration: none; transition: 0.3s; }
         .sns-icons a:hover { color: #fff; transform: scale(1.15); }
 
-        .lang-nav { align-self: flex-end; margin-bottom: 15px; }
-        .lang-nav button { 
-            color: #888; border: 1px solid #444; padding: 4px 12px; border-radius: 20px; 
-            background: #000; cursor: pointer; margin-left: 10px; font-size: 12px; transition: 0.3s;
-        }
+        .lang-nav { text-align: right; margin-bottom: 15px; }
+        .lang-nav button { color: #888; border: 1px solid #444; padding: 4px 12px; border-radius: 20px; background: #000; cursor: pointer; margin-left: 8px; font-size: 11px; transition: 0.3s; }
         .lang-nav button:hover, .lang-nav button.active { color: #fff; border-color: #fff; background: rgba(255,255,255,0.1); }
 
-        /* 按钮与自定义 Icon */
-        .btn { display: inline-block; padding: 10px 18px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 13px; cursor: pointer; transition: 0.3s; }
-        .btn-filled { background: #fff; color: #000; width: 100%; text-align: center; box-sizing: border-box; }
-        .btn-outline { border: 1px solid rgba(255,255,255,0.3); color: #fff; margin-top: 5px; margin-right: 5px; text-align: center; display: inline-flex; align-items: center; justify-content: center; }
-        
-        /* 针对音乐平台的瘦身按钮 */
+        .btn { display: inline-block; padding: 10px 18px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 13px; transition: 0.3s; cursor: pointer; }
+        .btn-outline { border: 1px solid rgba(255,255,255,0.3); color: #fff; margin-top: 5px; margin-right: 5px; display: inline-flex; align-items: center; justify-content: center; }
         .btn-compact { padding: 6px 12px; font-size: 11px; border-radius: 6px; }
         .btn-compact i { margin-right: 4px; font-size: 13px; }
-        
-        /* 自定义图片图标样式 */
         .custom-icon { height: 14px; width: auto; margin-right: 6px; border-radius: 2px; }
 
-        @media (max-width: 1000px) { .side-commission { position: relative; right: 0; top: 0; width: auto; margin-bottom: 20px; } }
-
-        /* 隔离的 JS 隐藏类 */
         .lang-block { display: none; }
+        @media (max-width: 1000px) { .side-commission { position: relative; right: 0; top: 0; width: auto; margin-bottom: 20px; } }
     </style>
 </head>
 <body>
 
+<div class="tide-banner">
+    <div class="tide-track">
+        <a href="YOUR_ALBUM_LINK" target="_blank">NEW ALBUM "ALBUM TITLE" OUT NOW ✧ CLICK TO LISTEN</a>
+        <a href="YOUR_ALBUM_LINK" target="_blank">NEW ALBUM "ALBUM TITLE" OUT NOW ✧ CLICK TO LISTEN</a>
+    </div>
+</div>
+
 <div class="side-commission">
-    <h2>Free Commission</h2>
-    <p>Compose for interesting projects for FREE.</p>
-    <a href="mailto:raynodon@outlook.com" class="btn btn-filled">Email Me</a>
-    <span class="side-email">raynodon@outlook.com</span>
+    <h2 id="side-title" style="font-size: 1rem; margin: 0 0 5px 0;">Free Commission</h2>
+    <p id="side-desc" style="font-size: 0.8rem; margin-bottom: 15px; opacity: 0.9;">Compose for interesting projects for FREE.</p>
+    <a href="mailto:raynodon@outlook.com" id="side-btn" style="background:#fff; color:#000; width:100%; text-align:center; box-sizing:border-box;" class="btn">Email Me</a>
+    <span style="font-size: 0.75rem; display:block; text-align:center; margin-top:10px; color:#fff; opacity:0.8;">raynodon@outlook.com</span>
 </div>
 
 <div class="container">
@@ -168,12 +172,11 @@
 
     <div class="section">
         <h3 id="music-title" style="margin: 0 0 15px 0; font-size: 1.3rem;">Music / Works</h3>
-        
         <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px; background: #000; margin-bottom: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.4);">
             <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" src="https://www.youtube.com/embed/videoseries?list=PLumnOpGCaC3zBTO_wNkSU3hT8RG9v3Jju" allowfullscreen></iframe>
         </div>
-        
         <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+            <a href="YOUR_SPOTIFY_LINK" target="_blank" class="btn btn-outline btn-compact"><i class="fa-brands fa-spotify"></i>Spotify</a>
             <a href="https://music.163.com/#/artist?id=34381748" target="_blank" class="btn btn-outline btn-compact">
                 <img src="netease.png" alt="NetEase" class="custom-icon" onerror="this.style.display='none'">NetEase
             </a>
@@ -185,36 +188,35 @@
 
 <script>
     function switchLang(lang) {
-        // 隐藏所有板块
-        const blocks = ['en', 'zh', 'ja'];
-        blocks.forEach(function(b) {
-            document.getElementById(b).style.display = 'none';
-        });
+        ['en', 'zh', 'ja'].forEach(b => document.getElementById(b).style.display = 'none');
+        ['btn-en', 'btn-zh', 'btn-ja'].forEach(btn => document.getElementById(btn).classList.remove('active'));
         
-        // 取消高亮
-        const buttons = ['btn-en', 'btn-zh', 'btn-ja'];
-        buttons.forEach(function(btn) {
-            document.getElementById(btn).classList.remove('active');
-        });
-        
-        // 显示选中语言
         document.getElementById(lang).style.display = 'block';
         document.getElementById('btn-' + lang).classList.add('active');
+        
+        const mt = document.getElementById('music-title');
+        const st = document.getElementById('side-title');
+        const sd = document.getElementById('side-desc');
+        const sb = document.getElementById('side-btn');
 
-        // 动态翻译 Music / Works 标题
-        const musicTitle = document.getElementById('music-title');
         if (lang === 'zh') {
-            musicTitle.innerText = '音乐 / 作品';
+            mt.innerText = '音乐 / 作品';
+            st.innerText = '免费委托';
+            sd.innerText = '为有趣的项目提供免费作曲。';
+            sb.innerText = '发送邮件';
         } else if (lang === 'ja') {
-            musicTitle.innerText = '音楽 / 作品';
+            mt.innerText = '音楽 / 作品';
+            st.innerText = '無料依頼';
+            sd.innerText = '面白いプロジェクトに無料で作曲します。';
+            sb.innerText = 'メールを送る';
         } else {
-            musicTitle.innerText = 'Music / Works';
+            mt.innerText = 'Music / Works';
+            st.innerText = 'Free Commission';
+            sd.innerText = 'Compose for interesting projects for FREE.';
+            sb.innerText = 'Email Me';
         }
     }
-
-    // 默认执行英文
     switchLang('en');
 </script>
-
 </body>
 </html>
